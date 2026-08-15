@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React from 'react';
-import { Alert, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { Screen } from '../../components/Screen';
 import { TransactionRow } from '../../components/TransactionRow';
 import { EmptyState } from '../../components/EmptyState';
@@ -12,6 +12,7 @@ import { useTheme } from '../../theme/ThemeProvider';
 import { QuickActionsRow } from './components/QuickActionsRow';
 import { SafeToSpendHero } from './components/SafeToSpendHero';
 import { UpcomingBillsCard } from './components/UpcomingBillsCard';
+import { showAlert } from '../../utils/alert';
 
 type Nav = NativeStackNavigationProp<RootStackParamList>;
 
@@ -26,7 +27,7 @@ export function DashboardScreen() {
   const recent = transactions.slice(0, 6);
 
   const confirmDelete = (id: string, label: string) => {
-    Alert.alert('Delete entry', `Remove "${label}"? This can't be undone.`, [
+    showAlert('Delete entry', `Remove "${label}"? This can't be undone.`, [
       { text: 'Cancel', style: 'cancel' },
       { text: 'Delete', style: 'destructive', onPress: () => deleteTransaction(id) },
     ]);

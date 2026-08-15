@@ -1,7 +1,7 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { format } from 'date-fns';
 import React, { useState } from 'react';
-import { Alert, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { Button } from '../../components/Button';
 import { DateField } from '../../components/DateField';
 import { FrequencyPicker } from '../../components/FrequencyPicker';
@@ -14,6 +14,7 @@ import { useEntitlement } from '../../hooks/useEntitlement';
 import { RootStackParamList } from '../../navigation/types';
 import { useAppStore } from '../../store/useAppStore';
 import { useTheme } from '../../theme/ThemeProvider';
+import { showAlert } from '../../utils/alert';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'IncomeForm'>;
 
@@ -60,7 +61,7 @@ export function IncomeFormScreen({ navigation, route }: Props) {
 
   const handleDelete = () => {
     if (!existing) return;
-    Alert.alert('Delete income source', `Remove "${existing.label}"?`, [
+    showAlert('Delete income source', `Remove "${existing.label}"?`, [
       { text: 'Cancel', style: 'cancel' },
       {
         text: 'Delete',

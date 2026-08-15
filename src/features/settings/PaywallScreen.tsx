@@ -2,13 +2,14 @@ import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
-import { Alert, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { Button } from '../../components/Button';
 import { Screen } from '../../components/Screen';
 import { PRO_FEATURES } from '../../constants/entitlements';
 import { useEntitlement } from '../../hooks/useEntitlement';
 import { RootStackParamList } from '../../navigation/types';
 import { useTheme } from '../../theme/ThemeProvider';
+import { showAlert } from '../../utils/alert';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Paywall'>;
 
@@ -18,7 +19,7 @@ export function PaywallScreen({ navigation, route }: Props) {
 
   const handleMockPurchase = async () => {
     await setDevProOverride(true);
-    Alert.alert('Pro unlocked (dev mode)', 'This is a mock entitlement for development — no payment was made.', [
+    showAlert('Pro unlocked (dev mode)', 'This is a mock entitlement for development — no payment was made.', [
       { text: 'OK', onPress: () => navigation.goBack() },
     ]);
   };

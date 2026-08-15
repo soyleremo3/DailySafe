@@ -7,6 +7,10 @@ import { Bill } from '../domain/types';
 const REMINDER_HOUR = 9;
 const CHANNEL_ID = 'bill-reminders';
 
+// expo-notifications does not support local scheduling on web — every
+// scheduling/cancel call below is a no-op there instead of throwing.
+const SUPPORTS_NOTIFICATIONS = Platform.OS !== 'web';
+
 function reminderIdentifier(billId: string): string {
   return `bill-reminder-${billId}`;
 }
@@ -20,6 +24,7 @@ export async function ensureAndroidChannel(): Promise<void> {
 }
 
 export async function requestNotificationPermission(): Promise<boolean> {
+  if (!SUPPORTS_NOTIFICATIONS) return false;
   const current = await Notifications.getPermissionsAsync();
   if (current.granted) return true;
   const requested = await Notifications.requestPermissionsAsync();
@@ -43,6 +48,7 @@ function reminderDateFor(bill: Bill, currency: string, from: Date): Date | null 
  * bill edit) — always converges to "one future notification per bill".
  */
 export async function reconcileBillReminders(bills: Bill[], currency = 'USD', now = new Date()): Promise<void> {
+  if (!SUPPORTS_NOTIFICATIONS) return;
   const granted = await Notifications.getPermissionsAsync();
   if (!granted.granted) return;
 
@@ -77,6 +83,7 @@ export async function reconcileBillReminders(bills: Bill[], currency = 'USD', no
 }
 
 export async function cancelAllBillReminders(): Promise<void> {
+  if (!SUPPORTS_NOTIFICATIONS) return;
   const scheduled = await Notifications.getAllScheduledNotificationsAsync();
   await Promise.all(
     scheduled

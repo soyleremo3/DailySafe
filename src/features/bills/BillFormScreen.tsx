@@ -1,7 +1,7 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { format } from 'date-fns';
 import React, { useState } from 'react';
-import { Alert, StyleSheet, Switch, Text, View } from 'react-native';
+import { StyleSheet, Switch, Text, View } from 'react-native';
 import { Button } from '../../components/Button';
 import { Chip } from '../../components/Chip';
 import { DateField } from '../../components/DateField';
@@ -17,6 +17,7 @@ import { RootStackParamList } from '../../navigation/types';
 import { requestNotificationPermission } from '../../notifications/scheduler';
 import { useAppStore } from '../../store/useAppStore';
 import { useTheme } from '../../theme/ThemeProvider';
+import { showAlert } from '../../utils/alert';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'BillForm'>;
 
@@ -74,7 +75,7 @@ export function BillFormScreen({ navigation, route }: Props) {
 
   const handleDelete = () => {
     if (!existing) return;
-    Alert.alert('Delete bill', `Remove "${existing.label}"?`, [
+    showAlert('Delete bill', `Remove "${existing.label}"?`, [
       { text: 'Cancel', style: 'cancel' },
       {
         text: 'Delete',

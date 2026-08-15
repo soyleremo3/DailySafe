@@ -70,11 +70,25 @@ export function ReviewScreen(_props: Props) {
       primaryDisabled={submitting}
     >
       <Card style={styles.previewCard}>
-        <Text style={{ color: theme.colors.textMuted, fontSize: theme.fontSize.sm }}>Safe to spend today</Text>
-        <AmountText amount={preview.dailySafeToSpend} currency={currency.code} size="display" color={theme.colors.primary} />
+        <Text style={{ color: theme.colors.textMuted, fontSize: theme.fontSize.sm }}>
+          {preview.isOverBudget ? "You're already over budget" : 'Safe to spend today'}
+        </Text>
+        <AmountText
+          amount={preview.dailySafeToSpend}
+          currency={currency.code}
+          size="display"
+          color={preview.isOverBudget ? theme.colors.danger : theme.colors.primary}
+        />
         <Text style={{ color: theme.colors.textMuted, fontSize: theme.fontSize.sm, marginTop: 4 }}>
           Over the next {preview.daysRemaining} day{preview.daysRemaining === 1 ? '' : 's'} ({preview.periodLabel})
         </Text>
+        {preview.isOverBudget ? (
+          <Text style={{ color: theme.colors.danger, fontSize: theme.fontSize.xs, marginTop: 8, textAlign: 'center' }}>
+            Your bills, goals and savings target add up to {currency.symbol}
+            {preview.overBudgetAmount.toFixed(2)} more than your balance for this period. You can adjust any of these
+            after setup.
+          </Text>
+        ) : null}
       </Card>
 
       <SummaryRow label="Balance" value={`${currency.symbol}${draft.currentBalance || '0'}`} />

@@ -2,7 +2,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React, { useState } from 'react';
-import { Alert, Linking, Pressable, StyleSheet, Switch, Text, View } from 'react-native';
+import { Linking, Pressable, StyleSheet, Switch, Text, View } from 'react-native';
 import { Button } from '../../components/Button';
 import { Card } from '../../components/Card';
 import { Chip } from '../../components/Chip';
@@ -16,6 +16,7 @@ import { RootStackParamList } from '../../navigation/types';
 import { requestNotificationPermission } from '../../notifications/scheduler';
 import { useAppStore } from '../../store/useAppStore';
 import { useTheme } from '../../theme/ThemeProvider';
+import { showAlert } from '../../utils/alert';
 
 type Nav = NativeStackNavigationProp<RootStackParamList>;
 
@@ -51,7 +52,7 @@ export function SettingsScreen() {
   };
 
   const handleReset = () => {
-    Alert.alert('Reset all data', 'This permanently deletes every entry, bill, goal and setting on this device. This cannot be undone.', [
+    showAlert('Reset all data', 'This permanently deletes every entry, bill, goal and setting on this device. This cannot be undone.', [
       { text: 'Cancel', style: 'cancel' },
       { text: 'Reset', style: 'destructive', onPress: () => resetAllData() },
     ]);

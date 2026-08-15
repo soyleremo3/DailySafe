@@ -1,6 +1,6 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { Card } from '../../../components/Card';
 import { TextField } from '../../../components/TextField';
 import { getCurrencyInfo } from '../../../domain/currencies';
@@ -71,7 +71,7 @@ export function SavingsGoalScreen({ navigation }: Props) {
 function OptionRow({ selected, title, subtitle, onPress }: { selected: boolean; title: string; subtitle: string; onPress: () => void }) {
   const theme = useTheme();
   return (
-    <View accessibilityRole="radio" accessibilityState={{ selected }} onTouchEnd={onPress} style={styles.optionRow}>
+    <Pressable accessibilityRole="radio" accessibilityState={{ selected }} onPress={onPress} style={styles.optionRow}>
       <View style={[styles.radio, { borderColor: selected ? theme.colors.primary : theme.colors.border }]}>
         {selected ? <View style={[styles.radioDot, { backgroundColor: theme.colors.primary }]} /> : null}
       </View>
@@ -79,7 +79,7 @@ function OptionRow({ selected, title, subtitle, onPress }: { selected: boolean; 
         <Text style={{ color: theme.colors.text, fontWeight: theme.fontWeight.semibold as any, fontSize: theme.fontSize.md }}>{title}</Text>
         <Text style={{ color: theme.colors.textMuted, fontSize: theme.fontSize.sm }}>{subtitle}</Text>
       </View>
-    </View>
+    </Pressable>
   );
 }
 

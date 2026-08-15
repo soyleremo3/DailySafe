@@ -1,7 +1,7 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { addMonths, format } from 'date-fns';
 import React, { useState } from 'react';
-import { Alert, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { Button } from '../../components/Button';
 import { Chip } from '../../components/Chip';
 import { DateField } from '../../components/DateField';
@@ -14,6 +14,7 @@ import { useEntitlement } from '../../hooks/useEntitlement';
 import { RootStackParamList } from '../../navigation/types';
 import { useAppStore } from '../../store/useAppStore';
 import { useTheme } from '../../theme/ThemeProvider';
+import { showAlert } from '../../utils/alert';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'GoalForm'>;
 
@@ -62,7 +63,7 @@ export function GoalFormScreen({ navigation, route }: Props) {
 
   const handleDelete = () => {
     if (!existing) return;
-    Alert.alert('Delete goal', `Remove "${existing.label}"?`, [
+    showAlert('Delete goal', `Remove "${existing.label}"?`, [
       { text: 'Cancel', style: 'cancel' },
       {
         text: 'Delete',
