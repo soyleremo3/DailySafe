@@ -5,6 +5,25 @@ updates:
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 5
+    # Expo SDK pins exact major versions for these packages; a bare major-version
+    # bump here breaks `expo-doctor` and often the app itself. Bump the whole SDK
+    # deliberately (`npx expo install --fix` after choosing a new SDK) instead of
+    # letting Dependabot do it package-by-package. See AGENTS.md.
+    ignore:
+      - dependency-name: "expo"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "expo-*"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "react-native"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "react-native-*"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "react"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "react-dom"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@react-native-community/datetimepicker"
+        update-types: ["version-update:semver-major"]
 
   - package-ecosystem: "github-actions"
     directory: "/"
