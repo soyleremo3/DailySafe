@@ -1,15 +1,23 @@
 {
   "expo": {
     "name": "DailySafe",
-    "slug": "DailySafe",
+    "slug": "dailysafe",
+    "scheme": "dailysafe",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "backgroundColor": "#0B1220",
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.dailysafe.app",
+      "infoPlist": {
+        "UIUserInterfaceStyle": "Automatic"
+      }
     },
     "android": {
+      "package": "com.dailysafe.app",
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/android-icon-foreground.png",
@@ -19,7 +27,18 @@
       "predictiveBackGestureEnabled": false
     },
     "web": {
-      "favicon": "./assets/favicon.png"
-    }
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
+    },
+    "plugins": [
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/android-icon-foreground.png",
+          "color": "#0B6E4F"
+        }
+      ],
+      "@react-native-community/datetimepicker"
+    ]
   }
 }
