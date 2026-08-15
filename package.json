@@ -1,6 +1,12 @@
 {
   "name": "dailysafe",
   "version": "1.0.0",
+  "description": "Privacy-first, local-only personal finance app: how much can you safely spend today?",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/soyleremo3/DailySafe.git"
+  },
   "main": "index.ts",
   "dependencies": {
     "@expo/vector-icons": "^15.0.3",
